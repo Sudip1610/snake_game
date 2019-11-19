@@ -1,4 +1,4 @@
-//const canvas=document.getElementById('canvas');
+//Resolution independent code 
 function setupCanvas(canvas) {
     // Get the device pixel ratio, falling back to 1.
     var dpr = window.devicePixelRatio || 1;
@@ -14,9 +14,17 @@ function setupCanvas(canvas) {
     c.scale(dpr, dpr);
     return c;
   }
-const c=setupCanvas(document.getElementById('canvas'));
-
+const canvas=document.getElementById('canvas');
+const c=setupCanvas(canvas);
+/*
 //Text at the start of the game
 c.font="800 90px Courier New";
 c.textAlign = "center";
 c.fillText("Start",250,250);
+*/
+//Create the food
+//c.fillStyle="#FFF";
+let box=10;
+let x=Math.floor(Math.random()*(canvas.width-box));
+let y=Math.floor(Math.random()*(canvas.height-box));
+c.fillRect(x,y,box,box);
