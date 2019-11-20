@@ -73,6 +73,9 @@ function draw()
   c.fillStyle="black";
   c.fillRect(10,30,480,440);
 
+  //Draw food
+  c.fillStyle="blue";
+  c.fillRect(food.x,food.y,box,box);
   //Draw Snake
   for(let i=0;i<snake.length;i++)
   {
@@ -91,7 +94,6 @@ function draw()
   //SNAKE MOVES
   
   
-  snake.pop();
    snakeX=snake[0].x;
    snakeY=snake[0].y;
    if(d=="LEFT")
@@ -114,8 +116,21 @@ function draw()
      x:snakeX,
      y:snakeY
    }
-   snake.unshift(newHead);
-  
+  //Snake eats the food
+   if(snakeX==food.x && snakeY==food.y)
+   {
+     score++;
+     food={
+      x:Math.floor(Math.random()*48+1)*box,
+      y:Math.floor(Math.random()*44+3)*box
+     }
+     snake.unshift(newHead);
+   }
+   else
+   {
+    snake.pop();
+    snake.unshift(newHead);
+   }
 }
 
 let game=setInterval(draw,100);
