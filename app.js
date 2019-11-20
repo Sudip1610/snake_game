@@ -15,7 +15,7 @@ function setupCanvas(canvas) {
     return c;
   }
 //Add control for the snake
-let d;
+let d="RIGHT";
 document.addEventListener('keydown',direction);
 function direction(event)
 {
@@ -66,6 +66,16 @@ snake[1]={x:8*box,y:10*box};
 //Draw function
 let score=0;
 
+// cheack collision function
+function collision(head,array){
+  for(let i = 0; i < array.length; i++){
+      if(head.x == array[i].x && head.y == array[i].y){
+          return true;
+      }
+  }
+  return false;
+}
+
 function draw()
 {
   c.clearRect(0,0,canvas.width,canvas.height);
@@ -76,6 +86,7 @@ function draw()
   //Draw food
   c.fillStyle="blue";
   c.fillRect(food.x,food.y,box,box);
+
   //Draw Snake
   for(let i=0;i<snake.length;i++)
   {
@@ -92,10 +103,8 @@ function draw()
   c.fillText(score,90,25);
 
   //SNAKE MOVES
-  
-  
-   snakeX=snake[0].x;
-   snakeY=snake[0].y;
+   let snakeX=snake[0].x;
+   let snakeY=snake[0].y;
    if(d=="LEFT")
    {
      snakeX-=box;
@@ -112,10 +121,7 @@ function draw()
    {
      snakeY+=box;
    }
-   let newHead={
-     x:snakeX,
-     y:snakeY
-   }
+
   //Snake eats the food
    if(snakeX==food.x && snakeY==food.y)
    {
@@ -124,13 +130,25 @@ function draw()
       x:Math.floor(Math.random()*48+1)*box,
       y:Math.floor(Math.random()*44+3)*box
      }
-     snake.unshift(newHead);
+     //snake.unshift(newHead);
    }
    else
    {
     snake.pop();
-    snake.unshift(newHead);
+    //snake.unshift(newHead);
    }
+   let newHead={
+    x:snakeX,
+    y:snakeY
+  }
+
+   //Collison detection
+   if(snakeX<box || snakeY<3*box || snakeX>48*box || snakeY>46*box || collision(newHead,snake))
+   {
+      clearInterval(game);
+   }
+   snake.unshift(newHead);
+
 }
 
 let game=setInterval(draw,100);
