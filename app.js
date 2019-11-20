@@ -28,14 +28,36 @@ c.fillText("Start",250,250);
 c.filStyle="black";
 c.fillRect(10,30,480,440);
 
+const box=10;
 //Create the food
-c.fillStyle="white";
-let box=10;
-let x=Math.floor(Math.random()*(canvas.width-box));
-let y=Math.floor(Math.random()*(canvas.height-box));
-c.fillRect(x,y,box,box);
+//c.fillStyle="white";
+let food={
+   x:Math.floor(Math.random()*48+1)*box,
+   y:Math.floor(Math.random()*44+3)*box
+}
 
 //Make the snake
-console.log(canvas.width);
-console.log(canvas.height);
+let snake=[];
+snake[0]={x:9*box,y:10*box};
+snake[1]={x:8*box,y:10*box};
+
+//Draw function
+let score=0;
+
+function draw()
+{
+  for(let i=0;i<snake.length;i++)
+  {
+    c.fillStyle=(i==0)?"green":"white";
+    c.fillRect(snake[i].x,snake[i].y,box,box);
+    c.strokeStyle="red";
+    c.strokeRect(snake[i].x,snake[i].y,box,box);
+  }
+  c.fillStyle="blue";
+  c.font="30px Changa One";
+  c.fillText("score :",10,25);
+  c.fillText(score,90,25);
+}
+
+let game=setInterval(draw,100);
 
