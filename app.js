@@ -1,22 +1,19 @@
 //Resolution independent code 
+
 function setupCanvas(canvas) {
-    // Get the device pixel ratio, falling back to 1.
     var dpr = window.devicePixelRatio || 1;
-    // Get the size of the canvas in CSS pixels.
     var rect = canvas.getBoundingClientRect();
-    // Give the canvas pixel dimensions of their CSS
-    // size * the device pixel ratio.
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
     let c = canvas.getContext('2d');
-    // Scale all drawing operations by the dpr, so you
-    // don't have to worry about the difference.
     c.scale(dpr, dpr);
     return c;
   }
+  
 //Add control for the snake
 let d="RIGHT";
 document.addEventListener('keydown',direction);
+//Direction Cases
 function direction(event)
 {
   if(event.keyCode==37 && d!="RIGHT")
@@ -39,20 +36,9 @@ function direction(event)
 
 const canvas=document.getElementById('canvas');
 const c=setupCanvas(canvas);
-/*
-//Text at the start of the game
-c.font="800 90px Courier New";
-c.textAlign = "center";
-c.fillText("Start",250,250);
-*/
-
-//Create the match area
-//c.filStyle="black";
-//c.fillRect(10,30,480,440);
 
 const box=10;
 //Create the food
-//c.fillStyle="white";
 let food={
    x:Math.floor(Math.random()*48+1)*box,
    y:Math.floor(Math.random()*44+3)*box
@@ -63,7 +49,6 @@ let snake=[];
 snake[0]={x:9*box,y:10*box};
 snake[1]={x:8*box,y:10*box};
 
-//Draw function
 let score=0;
 
 // cheack collision function
@@ -76,6 +61,7 @@ function collision(head,array){
   return false;
 }
 
+//Draw function
 function draw()
 {
   c.clearRect(0,0,canvas.width,canvas.height);
@@ -130,12 +116,10 @@ function draw()
       x:Math.floor(Math.random()*48+1)*box,
       y:Math.floor(Math.random()*44+3)*box
      }
-     //snake.unshift(newHead);
    }
    else
    {
     snake.pop();
-    //snake.unshift(newHead);
    }
    let newHead={
     x:snakeX,
