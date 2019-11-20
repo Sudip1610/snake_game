@@ -47,8 +47,8 @@ c.fillText("Start",250,250);
 */
 
 //Create the match area
-c.filStyle="black";
-c.fillRect(10,30,480,440);
+//c.filStyle="black";
+//c.fillRect(10,30,480,440);
 
 const box=10;
 //Create the food
@@ -68,6 +68,12 @@ let score=0;
 
 function draw()
 {
+  c.clearRect(0,0,canvas.width,canvas.height);
+  //Match area
+  c.fillStyle="black";
+  c.fillRect(10,30,480,440);
+
+  //Draw Snake
   for(let i=0;i<snake.length;i++)
   {
     c.fillStyle=(i==0)?"green":"white";
@@ -75,10 +81,41 @@ function draw()
     c.strokeStyle="red";
     c.strokeRect(snake[i].x,snake[i].y,box,box);
   }
+  
+  //Score
   c.fillStyle="blue";
   c.font="30px Changa One";
   c.fillText("score :",10,25);
   c.fillText(score,90,25);
+
+  //SNAKE MOVES
+  
+  
+  snake.pop();
+   snakeX=snake[0].x;
+   snakeY=snake[0].y;
+   if(d=="LEFT")
+   {
+     snakeX-=box;
+   }
+   if(d=="RIGHT")
+   {
+     snakeX+=box;
+   }
+   if(d=="UP")
+   {
+     snakeY-=box;
+   }
+   if(d=="DOWN")
+   {
+     snakeY+=box;
+   }
+   let newHead={
+     x:snakeX,
+     y:snakeY
+   }
+   snake.unshift(newHead);
+  
 }
 
 let game=setInterval(draw,100);
